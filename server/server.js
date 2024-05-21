@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import authentication from "./routes/authentication.js";
 import postOffers from "./routes/postOffers.js";
 import "dotenv/config";
+import anonymousOffers from "./routes/anonymousOffers.js";
+import apply from "./routes/apply.js";
 const app = express();
 
 database();
@@ -23,12 +25,12 @@ app.get("/", (req, res) => {
 });
 
 //LOGIN ROUTE IN ADMIN
-app.use("", authentication);
+app.use("/api", authentication);
 
 //GET ALL OFFERS
-
+app.use("/api", anonymousOffers);
 //POSTULER A UNE OFFRE
-
+app.use("/api", apply);
 //LA LES AUTRES ROUTES ADMIN
 // JWT MIDDLEWARE
 app.use(verifyAuth);
