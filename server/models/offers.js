@@ -26,6 +26,10 @@ const offerSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  status: {
+    type: String,
+    default: 1,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -6,7 +6,7 @@ const anonymousOffers = express.Router();
 //Get all the offers
 anonymousOffers.get("/home", async (req, res) => {
   try {
-    const allOffer = await Offers.find();
+    const allOffer = await Offers.find({ status: "1" }).sort({ createdAt: -1 });
     return res.status(200).json({ result: allOffer });
   } catch (err) {
     console.error(err);

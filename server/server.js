@@ -4,10 +4,11 @@ import verifyAuth from "./middleware/verifyAuth.js";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authentication from "./routes/authentication.js";
-import postOffers from "./routes/postOffers.js";
+import offersControl from "./routes/offersControl.js";
 import "dotenv/config";
 import anonymousOffers from "./routes/anonymousOffers.js";
 import apply from "./routes/apply.js";
+import admin from "./routes/admin.js";
 const app = express();
 
 database();
@@ -35,4 +36,6 @@ app.use("/api", apply);
 // JWT MIDDLEWARE
 app.use(verifyAuth);
 
-app.use("/admin", postOffers);
+app.use("/admin", offersControl);
+
+app.use("/admin", admin);
