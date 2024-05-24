@@ -13,7 +13,7 @@
     <h3>Description de l'offre</h3>
     <p>{{ job.description }}</p>
     <button @click="toggleModal">Postuler</button>
-    <ModalApply v-if="this.showModal" @close="toggleModal">
+    <Modal v-if="this.showModal" @close="toggleModal">
       <h2>{{ job.title }}</h2>
       <form @submit.prevent="handleSubmit">
         <label for="firstname">Prénom</label>
@@ -26,18 +26,18 @@
         <input type="file" name="cv" id="" @change="onFileSelected" />
         <button type="submit">Je tente ma chance!</button>
       </form>
-    </ModalApply>
+    </Modal>
   </div>
 </template>
 
 <script>
 import { getTimeSince } from "../utils/utils.js";
-import ModalApply from "../components/ModalApply.vue";
+import Modal from "../components/Modal.vue";
 import axios from "axios";
 let id;
 export default {
   components: {
-    ModalApply,
+    Modal,
   },
   data() {
     return {

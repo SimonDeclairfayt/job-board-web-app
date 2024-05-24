@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getTimeSince,
-    async handleSearch(searchTerm) {
+    handleSearch(searchTerm) {
       fetch(`http://localhost:3333/api/search/${searchTerm}`)
         .then((response) => response.json())
         .then((data) => {
