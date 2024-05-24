@@ -14,9 +14,11 @@ offersControl.post(
         company = req.body.company,
         description = req.body.description,
         createdBy = req.user.id;
+      //const tags = req.body.tags;
       if (!title || !company || !description) {
         return res.status(400).send("Missing Values");
       }
+      //if (!tags) tags = {};
       let logoUrl, imageUrl;
       if (req.files.logo) {
         logoUrl = await uploadFile(req.files.logo[0]);
@@ -35,6 +37,7 @@ offersControl.post(
         image: imageUrl,
         description,
         createdBy,
+        //tags: tags,
       });
 
       await newOffer.save();

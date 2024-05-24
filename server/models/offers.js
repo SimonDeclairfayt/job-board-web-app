@@ -29,7 +29,12 @@ const offerSchema = new mongoose.Schema({
   status: {
     type: String,
     default: 1,
-  },
+  } /*
+  tags: {
+    jobOffer: { type: String, required: false },
+    location: { type: String, required: false },
+    experience: { type: String, required: false },
+  },*/,
   createdAt: {
     type: Date,
     default: Date.now,

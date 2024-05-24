@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authentication from "./routes/authentication.js";
 import offersControl from "./routes/offersControl.js";
+import cors from "cors";
 import "dotenv/config";
 import anonymousOffers from "./routes/anonymousOffers.js";
 import apply from "./routes/apply.js";
@@ -12,7 +13,12 @@ import admin from "./routes/admin.js";
 const app = express();
 
 database();
-
+let corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
