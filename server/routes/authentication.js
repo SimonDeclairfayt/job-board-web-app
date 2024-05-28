@@ -4,7 +4,34 @@ import express from "express";
 import User from "../models/user.js";
 
 const authentication = express.Router();
+/*
+authentication.post("/register", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const username = req.body.username;
+    if (!password) {
+      console.log(password);
+      return res.status(400).send("Missing password");
+    } else if (!email) {
+      return res.status(400).send("Missing email");
+    } else if (!username) {
+      return res.status(400).send("Missing username");
+    }
 
+    const newUser = new User({
+      username: username,
+      password: password,
+      email: email,
+      is_admin: true,
+    });
+    await newUser.save();
+    return res.send("User registered");
+  } catch (err) {
+    console.log(err);
+  }
+});
+*/
 authentication.post("/login", async (req, res) => {
   try {
     const username = req.body.username,

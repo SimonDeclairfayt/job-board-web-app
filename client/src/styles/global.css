@@ -96,7 +96,7 @@
   .logo {
     height: 60px;
     width: auto;
-    object-fit: cover;
+    object-fit: contain;
     max-width: 70px;
   }
   .title--centered{
