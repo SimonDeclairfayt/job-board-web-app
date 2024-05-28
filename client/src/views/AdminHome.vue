@@ -1,32 +1,129 @@
 <template>
-  <h1>Jobbies</h1>
-  <h2>Vos offres les plus récentes</h2>
-  <ul v-if="offers.length > 0">
-    <li v-for="offer in offers" :key="offer._id">
-      <router-link :to="{ path: `/admin/offers/${offer._id}` }">
-        <h2>{{ offer.company }}</h2>
-        <p>{{ offer.title }}</p>
-        <p>{{ offer.status === "1" ? "En Cours" : "Terminé" }}</p>
-      </router-link>
-    </li>
-  </ul>
-  <button @click="toggleModal">Ajouter une offre</button>
-  <Modal v-if="this.showModal" @close="toggleModal">
-    <h2>Nouvelle offre</h2>
-    <form @submit.prevent="submitJobOffer">
-      <label for="company">Entreprise</label>
-      <input type="text" v-model="data.company" name="company" id="" />
-      <label for="title">Nom de l'offre</label>
-      <input type="text" v-model="data.title" name="title" id="" />
-      <label for="description">Description de l'offre</label>
-      <input type="text" v-model="data.description" name="description" />
-      <label for="logo">Logo</label>
-      <input type="file" name="logo" @change="onFileSelected" />
-      <label for="image">Image Descriptive</label>
-      <input type="file" name="image" @change="onFileSelected" />
-      <button type="submit">Ajouter</button>
-    </form>
-  </Modal>
+  <div v-if="showModal" class="background" @click="toggleModal"></div>
+  <div class="admin-container">
+    <div class="title--centered">
+      <h1 class="title title--big title--big--underline mb-med">Jobbies</h1>
+    </div>
+    <h2 class="title title--underline">Vos offres les plus récentes</h2>
+    <ul v-if="offers.length > 0" class="adminOffers-container">
+      <li v-for="offer in offers" :key="offer._id" class="adminOffers">
+        <router-link
+          :to="{ path: `/admin/offers/${offer._id}` }"
+          class="adminOffers-link"
+        >
+          <div>
+            <h2 class="company">{{ offer.company }}</h2>
+            <p class="title title--small title--small--underline">
+              {{ offer.title }}
+            </p>
+          </div>
+
+          <p
+            :class="{
+              'status status-ongoing': offer.status == '1',
+              'status status-done': offer.status == '2',
+            }"
+          >
+            {{ offer.status === "1" ? "En Cours" : "Terminé" }}
+          </p>
+        </router-link>
+      </li>
+    </ul>
+    <div class="button-wrapper">
+      <button @click="toggleModal" class="apply-btn">Ajouter une offre</button>
+    </div>
+    <Modal
+      v-if="this.showModal"
+      @close="toggleModal"
+      class="modal-container modal-overflow"
+    >
+      <div class="title--centered">
+        <h2 class="title title--underline title--modal">Nouvelle offre</h2>
+      </div>
+      <form @submit.prevent="submitJobOffer" class="form">
+        <label for="company" class="form-label">Entreprise</label>
+        <input
+          type="text"
+          v-model="data.company"
+          name="company"
+          class="formInput-text"
+        />
+        <label for="title" class="form-label">Nom de l'offre</label>
+        <input
+          type="text"
+          v-model="data.title"
+          name="title"
+          class="formInput-text"
+        />
+        <label for="description" class="form-label"
+          >Description de l'offre</label
+        >
+        <textarea
+          v-model="data.description"
+          name="description"
+          class="formInput-text textarea"
+        />
+        <div class="double-row">
+          <div>
+            <label for="logo" class="form-label">Logo</label>
+            <input
+              type="file"
+              ref="logoinput"
+              name="logo"
+              @change="onFileSelected"
+            />
+            <span
+              @click="$refs.logoinput.click()"
+              class="browse-btn browse-btn--half"
+            >
+              <img
+                v-if="logoUrl"
+                :src="this.logoUrl"
+                alt=""
+                class="select-img select-img--half"
+              />
+              <img
+                v-if="!logoUrl"
+                src="../assets/file.svg"
+                alt=""
+                class="browse-img"
+              />
+              <p v-if="!logoUrl">Sélectionner un fichier</p>
+            </span>
+          </div>
+          <div>
+            <label for="image" class="form-label">Image Descriptive</label>
+            <input
+              type="file"
+              ref="imageinput"
+              name="image"
+              @change="onFileSelected"
+            />
+            <span
+              @click="$refs.imageinput.click()"
+              class="browse-btn browse-btn--half"
+            >
+              <img
+                v-if="imageUrl"
+                :src="this.imageUrl"
+                alt=""
+                class="select-img select-img--half"
+              />
+              <img
+                v-if="!imageUrl"
+                src="../assets/file.svg"
+                alt=""
+                class="browse-img"
+              />
+              <p v-if="!imageUrl">Sélectionner un fichier</p>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn--send">Ajouter</button>
+      </form>
+    </Modal>
+  </div>
 </template>
 
 <script>
@@ -44,7 +141,11 @@ export default {
       const selectedFile = event.target.files[0];
       const fieldName = event.target.name;
       this.data[fieldName] = selectedFile;
-      console.log(this.data[fieldName]);
+      if (fieldName == "image") {
+        this.imageUrl = URL.createObjectURL(selectedFile);
+      } else if (fieldName == "logo") {
+        this.logoUrl = URL.createObjectURL(selectedFile);
+      }
     },
     submitJobOffer() {
       if (!this.data.title || !this.data.company || !this.data.description) {
@@ -87,6 +188,8 @@ export default {
         image: null,
         description: "",
       },
+      logoUrl: "",
+      imageUrl: "",
     };
   },
   created() {
@@ -108,3 +211,51 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.admin-container {
+  width: 100vw;
+  overflow-x: hidden;
+  padding: 20px;
+}
+.adminOffers-container {
+  margin-top: 32px;
+  padding-left: 0;
+  list-style-type: none;
+}
+.adminOffers {
+  background-color: #fff;
+  margin-bottom: 24px;
+  box-shadow: 0px 0px 20px 5px rgba(52, 63, 82, 0.2);
+  border-radius: 12px;
+}
+.adminOffers:hover {
+  box-shadow: 0px 0px 20px 5px rgba(52, 63, 82, 0.5);
+}
+.adminOffers-link {
+  text-decoration: none;
+  color: #343f52;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+}
+input[type="file"] {
+  display: none;
+}
+.double-row {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 20px;
+}
+.browse-btn--half {
+  height: 120px;
+  width: 135px;
+}
+.select-img--half {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+</style>
