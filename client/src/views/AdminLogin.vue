@@ -42,7 +42,7 @@ export default {
       if (!this.data.username || !this.data.password) {
         return;
       } else {
-        fetch("http://localhost:3333/api/login/", {
+        fetch("https://job-board-app-03c25eea5937.herokuapp.com/api/login/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -64,7 +64,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .login-container {
   width: 100vw;
   height: 100vh;
@@ -97,6 +97,7 @@ export default {
   color: #343f52;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 }
 .link {
   font-size: 16px;
@@ -104,5 +105,24 @@ export default {
   font-weight: 300;
   text-decoration: none;
   color: #77e9cb;
+}
+@media (min-width: 764px) {
+  .login-container {
+    background-color: #fff;
+    width: 60vw;
+    margin-left: 20vw;
+    height: 60vh;
+    margin-top: 20vh;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 5px rgba(52, 63, 82, 0.2);
+  }
+}
+@media (min-width: 1200px) {
+  .login-container {
+    width: 40vw;
+    height: 80vh;
+    margin-left: 30vw;
+  }
 }
 </style>

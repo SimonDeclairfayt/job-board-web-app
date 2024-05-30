@@ -1,6 +1,7 @@
 <template>
+  <div v-if="showModal" class="background" @click="toggleModal"></div>
+
   <div v-if="job" class="jobDetails">
-    <div v-if="showModal" class="background" @click="toggleModal"></div>
     <div class="header">
       <router-link :to="{ path: `/` }" class="arrow-link">
         <img src="../assets/arrow.svg" alt="Arrow to go back" class="arrow"
@@ -119,7 +120,7 @@ export default {
   },
   created() {
     id = this.$route.params.id;
-    fetch(`http://localhost:3333/api/offers/${id}`)
+    fetch(`https://job-board-app-03c25eea5937.herokuapp.com/api/offers/${id}`)
       .then((response) => response.json())
       .then((data) => {
         this.job = data;
@@ -145,16 +146,20 @@ export default {
       formData.append("cv", this.data.cv);
       console.log(formData);
       axios
-        .post(`http://localhost:3333/api/offers/${id}`, formData, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          `https://job-board-app-03c25eea5937.herokuapp.com/api/offers/${id}`,
+          formData,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(
           function (response) {
             this.axiosResponse = response.data;
-            console.log(response.data);
+            this.showModal = false;
           }.bind(this)
         )
         .catch(
@@ -205,5 +210,77 @@ export default {
 }
 input[type="file"] {
   display: none;
+}
+@media (min-width: 734px) {
+  .banner-details {
+    height: 350px;
+    border-radius: 20px;
+    filter: brightness(0.8);
+  }
+  .jobDetails-banner {
+    position: relative;
+  }
+  .jobDetails-banner--middle {
+    position: absolute;
+    margin-top: 0;
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .jobDetails-banner--middle .logo {
+    width: 100px;
+    height: 110px;
+    max-width: 100px;
+  }
+  .title--underline {
+    font-size: 28px;
+  }
+  .tagsContainer {
+    justify-content: center;
+    align-items: center;
+  }
+  .tags {
+    font-size: 14px;
+  }
+  .jobDetails-content {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  .form--doubleRow {
+    flex-flow: row nowrap;
+    gap: 24px;
+  }
+  .form--halfRow {
+    width: 100%;
+  }
+  .modal {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .browse-btn {
+    height: 250px;
+  }
+  .title--modal {
+    margin-top: 60px;
+  }
+}
+@media (min-width: 1200px) {
+  .jobDetails {
+    width: 80vw;
+    margin-left: 10vw;
+  }
+  .header {
+    padding: 32px;
+  }
+  .arrow {
+    top: 32px;
+    left: 10vw;
+  }
+  .modal-container {
+    width: 70vw;
+  }
 }
 </style>

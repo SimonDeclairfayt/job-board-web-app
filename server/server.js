@@ -15,7 +15,7 @@ const app = express();
 database();
 let corsOptions = {
   origin: [
-    "https://6655d59ae8a0d219622860ca--job-board-app-sd.netlify.app",
+    "https://job-board-app-sd.netlify.app/",
     "http://localhost:5173",
     "http://127.0.0.1:5500",
     "*",

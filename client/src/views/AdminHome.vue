@@ -158,12 +158,16 @@ export default {
       formData.append("logo", this.data.logo);
       formData.append("image", this.data.image);
       axios
-        .post(`http://localhost:3333/admin/offers/`, formData, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          `https://job-board-app-03c25eea5937.herokuapp.com/admin/offers/`,
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(
           function (response) {
             this.axiosResponse = response.data;
@@ -193,7 +197,7 @@ export default {
     };
   },
   created() {
-    fetch("http://localhost:3333/admin", {
+    fetch("https://job-board-app-03c25eea5937.herokuapp.com/admin", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -256,6 +260,35 @@ input[type="file"] {
 .select-img--half {
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
+}
+@media (min-width: 764px) {
+  .adminOffers-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 42px;
+  }
+  .double-row div {
+    width: 50%;
+  }
+  .browse-btn--half {
+    width: 100%;
+    height: 250px;
+  }
+  .select-img--half {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+  .textarea {
+    height: 200px;
+    max-height: 200px;
+  }
+}
+@media (min-width: 1200px) {
+  .admin-container {
+    width: 80vw;
+    margin-left: 10vw;
+  }
 }
 </style>

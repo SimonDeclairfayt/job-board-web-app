@@ -39,4 +39,14 @@ export default {
   width: 12px;
   height: 12px;
 }
+@media (min-width: 764px) {
+  .close-modal {
+    width: 36px;
+    height: 36px;
+  }
+  .close-modal img {
+    width: 18px;
+    height: 18px;
+  }
+}
 </style>

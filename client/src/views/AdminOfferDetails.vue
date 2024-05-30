@@ -1,6 +1,6 @@
 <template>
+  <div v-if="showModal" class="background" @click="toggleModal"></div>
   <div class="adminOffer-container">
-    <div v-if="showModal" class="background" @click="toggleModal"></div>
     <div class="header">
       <router-link :to="{ path: `/admin` }" class="arrow-link">
         <img src="../assets/arrow.svg" alt="Arrow to go back" class="arrow"
@@ -246,12 +246,16 @@ export default {
       formData.append("image", this.offer.image);
       formData.append("status", this.offer.status);
       axios
-        .patch(`http://localhost:3333/admin/offers/${id}`, formData, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .patch(
+          `https://job-board-app-03c25eea5937.herokuapp.com/admin/offers/${id}`,
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(
           function (response) {
             this.axiosResponse = response.data;
@@ -266,10 +270,13 @@ export default {
         );
     },
     deleteJobOffer() {
-      fetch(`http://localhost:3333/admin/offers/${id}`, {
-        method: "DELETE",
-        credentials: include,
-      }).then(this.$router.push("/admin"));
+      fetch(
+        `https://job-board-app-03c25eea5937.herokuapp.com/admin/offers/${id}`,
+        {
+          method: "DELETE",
+          credentials: include,
+        }
+      ).then(this.$router.push("/admin"));
     },
   },
 
@@ -289,13 +296,16 @@ export default {
 
   created() {
     id = this.$route.params.id;
-    fetch(`http://localhost:3333/admin/offers/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
+    fetch(
+      `https://job-board-app-03c25eea5937.herokuapp.com/admin/offers/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         this.offer = data[0];
@@ -411,7 +421,7 @@ input[type="file"] {
 .select-img--half {
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .status-container {
   display: flex;
@@ -421,5 +431,40 @@ input[type="file"] {
   gap: 24px;
   color: #343f52;
   margin-bottom: 12px;
+}
+@media (min-width: 764px) {
+  .double-row div {
+    width: 50%;
+  }
+  .browse-btn--half {
+    width: 100%;
+    height: 250px;
+  }
+  .select-img--half {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+  .textarea {
+    height: 200px;
+    max-height: 200px;
+  }
+}
+@media (min-width: 1200px) {
+  .adminOffer-container {
+    width: 70vw;
+    margin-left: 15vw;
+  }
+  .modal-container {
+    width: 70vw;
+    margin-left: 15vw;
+  }
+  .header {
+    padding: 32px;
+  }
+  .arrow {
+    top: 32px;
+    left: 15vw;
+  }
 }
 </style>

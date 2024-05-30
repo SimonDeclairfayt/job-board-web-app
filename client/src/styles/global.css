@@ -3,7 +3,9 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Nunito";
+  color: #343f52;
 }
+/*TITLE*/
 .title {
     color: #343f52;
     font-weight: 700;
@@ -12,6 +14,9 @@
     display: inline-block;
     line-height: 1.4;
     z-index: 2;
+  }
+  .title--main{
+    display: block;
   }
   .title--underline::after {
     position: absolute;
@@ -57,6 +62,7 @@
     width: calc(100% + 10px);
     background-color: #77e9cb;
   }
+  /*TAGS*/
   .tagsContainer {
     list-style-type: none;
     padding-left: 0;
@@ -83,6 +89,10 @@
     height: 12px;
     width: auto;
   }
+  .tag-img {
+    height: 12px;
+    width: auto;
+  }
   .logoContainer {
     width: 100px;
     height: 100px;
@@ -99,6 +109,52 @@
     object-fit: contain;
     max-width: 70px;
   }
+  /*TUILES*/
+  .jobOffers-container {
+    padding-left: 0;
+  }
+  .jobOffers {
+    list-style-type: none;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px -5px rgba(52, 63, 82, 0.5);
+    margin-bottom: 30px;
+    z-index: -2;
+  }
+  .jobOffers:hover {
+    box-shadow: 0 0 50px -20px #343f52;
+  }
+  .jobOffers_link {
+    text-decoration: none;
+    color: #343f52;
+  }
+  .jobOffers_imageContainer {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+  }
+  .jobOffers_image {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+  .jobOffers-textContainer {
+    padding: 24px;
+  }
+
+.logoContainer-middle {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+  /*GENERAL CLASSES*/
   .title--centered{
     text-align: center;
   }
@@ -128,6 +184,7 @@
     z-index: 4;
     cursor: pointer;
   }
+  /*FORM CLASSES*/
   .form-label {
     color: #343f52;
     font-size: 16px;
@@ -221,7 +278,7 @@
   .select-img {
     height: 120px;
     width: 255px;
-    object-fit: cover;
+    object-fit: contain;
   }
   .btn--send {
     color: #343f52;
@@ -268,4 +325,81 @@
     background-color: #ddfbdf;
     border: 1.2px solid #1a9f28;
     color: #4eda5c;
+  }
+  .mobile-hidden{
+    display: none;
+  }
+  @media(min-width:764px){
+    .jobOffers-container{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+      z-index: 0;
+    }
+    .jobOffers{
+      z-index: 2;
+    }
+    .jobOffers_link{
+      z-index: 2;
+      cursor: pointer;
+    }
+    @media(min-width: 1200px){
+      .jobOffers-container{
+        display: flex;
+        flex-flow: column nowrap;
+      }
+      .jobOffers{
+        height: 200px;
+      }
+      .jobOffers_imageContainer{
+        width: 345px;
+        height: 200px;
+      }
+      .jobOffers_link{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        position: relative;
+      }
+      .jobOffers_image{
+        max-width: 295px;
+        border-radius: 12px 0 0 12px;
+      }
+      .logoContainer-middle{
+        position: relative;
+        right: 100%;
+        margin-left: -50px;
+        margin-right: 0;
+      }
+      .jobOffers-textContainer{
+        padding-left: 34px;
+      }
+      .mobile-hidden{
+        display: block;
+      }
+      .btn-tuile{
+        position: absolute;
+        color: #343f52;
+        background-color: #77e9cb;
+        padding: 6px 24px;
+        right: 41px;
+        border-radius: 20px;
+        border: 1px solid #77e9cb;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .leaf-tuile{
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .title--main{
+        font-size: 32px;
+        text-align: center;
+      }
+    }
   }
